@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const FigureSkatingBlade = () => {
   return (
-    <div className='relative z-10 px-4'>
+    <div className='relative z-10 px-4 max-w-6xl mx-auto'>
       <Image
         src={'/figure-skating-blade.svg'}
         height={500}

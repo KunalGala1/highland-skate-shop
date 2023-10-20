@@ -18,6 +18,7 @@ const config: Config = {
         light: '#00b3ff',
         accent: '#ba31c2',
         splash: '#A71D31',
+        link: '#333',
       },
     },
   },

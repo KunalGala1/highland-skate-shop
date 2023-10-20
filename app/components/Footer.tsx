@@ -1,4 +1,9 @@
 const Footer = () => {
-  return <footer className='bg-main text-white p-8'>footer</footer>;
+  const year = new Date().getFullYear();
+  return (
+    <footer className='bg-main text-white p-8 flex justify-center items-center'>
+      <p className='text-sm'>Copyright &copy; Highland Skate Shop {year}</p>
+    </footer>
+  );
 };
 export default Footer;

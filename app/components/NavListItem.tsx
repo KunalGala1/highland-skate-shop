@@ -5,19 +5,19 @@ import { usePathname } from 'next/navigation';
 type NavListItemProps = {
   href: string;
   children: React.ReactNode;
-  toggleNav: () => void;
+  closeNav: () => void;
 };
 
-const NavListItem = ({ href, children, toggleNav }: NavListItemProps) => {
+const NavListItem = ({ href, children, closeNav }: NavListItemProps) => {
   const pathName = usePathname();
   const isActive = pathName === href;
   return (
     <li
-      className={`text-lg font-bold hover:text-accent transition ${
-        isActive ? 'text-accent' : ''
+      className={`text-lg font-bold hover:text-white transition ${
+        isActive ? 'text-white' : 'text-white/60'
       }`}
     >
-      <Link href={href} onClick={toggleNav}>
+      <Link href={href} onClick={closeNav}>
         {children}
       </Link>
     </li>

@@ -9,7 +9,10 @@ type BurgerProps = {
 const Burger = ({ isOpen, toggleNav }: BurgerProps) => {
   return (
     <div
-      className='cursor-pointer space-y-1 transition md:hidden relative z-20'
+      className={
+        'cursor-pointer space-y-1 transition md:hidden relative z-30' +
+        (isOpen ? ' -translate-x-1' : '')
+      }
       onClick={toggleNav}
     >
       <div
