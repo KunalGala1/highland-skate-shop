@@ -13,7 +13,7 @@ const NavListItem = ({ href, children, closeNav }: NavListItemProps) => {
   const isActive = pathName === href;
   return (
     <li
-      className={`text-lg font-bold hover:text-white transition ${
+      className={`font-bold hover:text-white transition ${
         isActive ? 'text-white' : 'text-white/60'
       }`}
     >
