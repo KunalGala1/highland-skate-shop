@@ -65,6 +65,6 @@ export async function POST(request: Request) {
       clientEmailResponse,
     });
   } catch (error) {
-    return Response.json({ error: error as string });
+    return Response.json({ success: false, error: error as string });
   }
 }

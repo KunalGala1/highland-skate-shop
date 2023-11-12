@@ -25,11 +25,6 @@ type Inputs = {
 const Form = () => {
   const [isSending, setIsSending] = React.useState(false);
 
-  const notify = () => {
-    toast.success('Email sent!');
-    console.log('tried to toast');
-  };
-
   const {
     register,
     handleSubmit,
@@ -50,18 +45,20 @@ const Form = () => {
 
       const result = await response.json();
 
-      if (response.ok) {
+      if (result.success) {
         setIsSending(false);
         console.log('Email sent:', result);
-        notify();
+        toast.success('Email sent!');
         reset();
       } else {
         setIsSending(false);
         console.error('Email failed to send:', result);
+        toast.error('Email failed to send');
       }
     } catch (error) {
       setIsSending(false);
       console.log('Network error:', error);
+      toast.error('Network error');
     }
   };
 
@@ -220,7 +217,7 @@ const Form = () => {
         </div>
 
         {/* Submit */}
-        <div className='flex justify-end'>
+        <div className='flex justify-end '>
           <Button>
             Send <FontAwesomeIcon icon={faPaperPlane} />
           </Button>
