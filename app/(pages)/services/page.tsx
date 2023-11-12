@@ -2,6 +2,7 @@ import Image from 'next/image';
 import SmallHeader from '@/app/components/SmallHeader';
 import Button from '@/app/components/Button';
 import MainText from '@/app/components/MainText';
+import Link from 'next/link';
 
 const ServicesPage = () => {
   return (
@@ -97,7 +98,9 @@ const ServicesPage = () => {
           </MainText>
         </div>
         <div className='flex justify-center'>
-          <Button>Request Service</Button>
+          <Button>
+            <Link href='/contact'>Request Service</Link>
+          </Button>
         </div>
       </section>
     </>

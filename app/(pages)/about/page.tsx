@@ -59,7 +59,7 @@ const AboutPage = () => {
       </section>
 
       {/* Timeline */}
-      <section className='p-8'>Timeline...</section>
+      {/* <section className='p-8'>Timeline...</section> */}
     </>
   );
 };
