@@ -46,7 +46,9 @@ const Nav = () => {
           Calendar
         </NavListItem>
         <Button>
-          <Link href='/contact'>Get In Touch</Link>
+          <Link href='/contact' onClick={closeNav}>
+            Get In Touch
+          </Link>
         </Button>
       </ul>
       <Burger isOpen={navOpen} toggleNav={toggleNav} />
