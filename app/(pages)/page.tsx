@@ -151,7 +151,7 @@ const HomePage = () => {
           </div>
           <div className='space-y-4 md:w-2/3'>
             {profiles[0] ? (
-              <SmallHeader>Rick Stephans</SmallHeader>
+              <SmallHeader>{profiles[0].name}</SmallHeader>
             ) : (
               <div className='rounded shadow bg-slate-200 h-7 w-[150px]'></div>
             )}
@@ -182,7 +182,7 @@ const HomePage = () => {
           </div>
           <div className='space-y-4 md:w-2/3'>
             {profiles[1] ? (
-              <SmallHeader>Diana Stephans</SmallHeader>
+              <SmallHeader>{profiles[1].name}</SmallHeader>
             ) : (
               <div className='rounded shadow bg-slate-200 h-7 w-[150px]'></div>
             )}

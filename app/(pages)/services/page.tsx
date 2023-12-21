@@ -47,7 +47,7 @@ const ServicesPage = () => {
               </div>
               <div className='bg-blue-400 p-4'>
                 <MainText>
-                  If blades are seperate, blade mounting is also included.
+                  If blades are separate, blade mounting is also included.
                 </MainText>
               </div>
             </div>
