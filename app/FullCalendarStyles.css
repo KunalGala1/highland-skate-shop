@@ -1,0 +1,43 @@
+.fc-button-primary {
+  background-color: transparent !important;
+  outline: none !important;
+  border: none !important;
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.fc-button-primary:hover {
+  background-color: #ebebeb !important;
+  outline: none !important;
+  border: none !important;
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.fc-button-primary:focus {
+  background-color: #ebebeb !important;
+  outline: none !important;
+  border: none !important;
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.fc-button-primary:active {
+  background-color: #ebebeb !important;
+  outline: none !important;
+  border: none !important;
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.fc-today-button {
+  text-transform: capitalize !important;
+}
+
+.fc-toolbar-title {
+  font-size: 1.5rem !important;
+}
+
+:root {
+  --fc-today-bg-color: #cde7f5 !important;
+}
