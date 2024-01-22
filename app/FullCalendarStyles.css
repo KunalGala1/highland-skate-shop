@@ -1,3 +1,9 @@
+.fc {
+  font-family: "Inter", sans-serif !important;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1) !important;
+  padding: 16px;
+}
+
 .fc-button-primary {
   background-color: transparent !important;
   outline: none !important;
@@ -30,14 +36,66 @@
   box-shadow: none !important;
 }
 
-.fc-today-button {
+.fc-button-active {
+  background-color: #ebebeb !important;
+  outline: none !important;
+  border: none !important;
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.fc-today-button,
+.fc-dayGridMonth-button,
+.fc-timeGridWeek-button,
+.fc-timeGridDay-button {
   text-transform: capitalize !important;
 }
 
 .fc-toolbar-title {
-  font-size: 1.5rem !important;
+  font-size: 22px !important;
+  color: #3c4043;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 :root {
-  --fc-today-bg-color: #cde7f5 !important;
+  --fc-today-bg-color: #e8cdf563 !important;
+  --fc-daygrid-event-dot-width: 6px;
+}
+
+/* days of the week */
+.fc .fc-col-header-cell-cushion {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+.fc .fc-timegrid-slot-label-cushion {
+  font-size: 10px !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
+  color: #70757a;
+}
+
+.fc .fc-daygrid-day-top {
+  justify-content: center !important;
+}
+
+/* Header row */
+.fc-theme-standard th {
+  border-bottom: none !important;
+}
+
+.fc .fc-timegrid-axis-cushion {
+  display: none !important;
+}
+
+.fc-event:focus {
+  box-shadow: none !important;
+}
+
+.fc-event:focus::before,
+.fc-event:focus::after {
+  display: none;
 }
