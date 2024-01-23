@@ -68,11 +68,13 @@ export default async function getEvents(): Promise<EventWithColor[]> {
   // Step 3: Map colorId to actual colors and format for FullCalendar
   const formattedEvents: EventWithColor[] = eventsJson.items.map(
     (event: Event) => {
+      const isAllDay = event.start.date && !event.start.dateTime;
       return {
         id: event.id,
         title: event.summary, // 'summary' from Google Calendar event is the 'title' in FullCalendar
         start: event.start.dateTime || event.start.date, // Use dateTime for timed events and date for all-day events
         end: event.end.dateTime || event.end.date, // Similarly for end time
+        allDay: isAllDay, // Set allDay to true for all-day events
         backgroundColor: event.colorId
           ? colorsJson.event[event.colorId].background
           : undefined,

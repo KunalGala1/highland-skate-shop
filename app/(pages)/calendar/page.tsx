@@ -29,10 +29,6 @@ const CalendarPage = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
-
   return (
     <section className="p-8">
       <FullCalendar
@@ -66,6 +62,12 @@ const CalendarPage = () => {
           }
         }}
         eventContent={(arg) => {
+          if (arg.event.allDay) {
+            // Render only the title for all-day events
+            return {
+              html: `<div class="fc-event-title">${arg.event.title}</div>`,
+            };
+          }
           // Custom function to format time
           const formatTime = (date: Date): string => {
             if (!date) return "";
