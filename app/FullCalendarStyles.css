@@ -60,7 +60,7 @@
 }
 
 :root {
-  --fc-today-bg-color: #e8cdf563 !important;
+  --fc-today-bg-color: rgba(172, 41, 177, 5%) !important;
   --fc-daygrid-event-dot-width: 6px;
 }
 
@@ -98,4 +98,28 @@
 .fc-event:focus::before,
 .fc-event:focus::after {
   display: none;
+}
+
+.fc-v-event {
+  border: none !important;
+}
+
+.fc-event-main {
+  padding: 2px !important;
+}
+
+.fc-v-event .fc-event-title,
+.fc-timegrid-event .fc-event-time {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  font-family: "Roboto", sans-serif !important;
+  line-height: 15px !important;
+}
+
+.fc .fc-daygrid-body-natural .fc-daygrid-day-events {
+  margin-bottom: 0 !important;
+  min-height: 15px !important;
 }
