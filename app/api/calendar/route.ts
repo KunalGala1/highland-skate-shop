@@ -1,13 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import getEvents from "@/lib/getEvents";
+import { NextRequest } from "next/server";
 
 type ResponseData = {
   message: string;
 };
 
 export async function GET(
-  req: NextApiRequest,
+  req: NextRequest,
   res: NextApiResponse<ResponseData>
 ) {
   try {
