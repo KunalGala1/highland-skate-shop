@@ -63,7 +63,6 @@ export default async function getEvents(): Promise<EventWithColor[]> {
     },
   });
   const colorsJson: ColorsResponse = await colorsRes.json();
-  console.log(colorsJson);
 
   // Step 3: Map colorId to actual colors and format for FullCalendar
   const formattedEvents: EventWithColor[] = eventsJson.items.map(

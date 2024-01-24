@@ -1,7 +1,7 @@
-import { Resend } from 'resend';
-import EmailInquiryTemplate from '@/emails/EmailInquiryTemplate';
-import EmailConfirmationTemplate from '@/emails/EmailConfirmationTemplate';
-import React from 'react';
+import { Resend } from "resend";
+import EmailInquiryTemplate from "@/emails/EmailInquiryTemplate";
+import EmailConfirmationTemplate from "@/emails/EmailConfirmationTemplate";
+import React from "react";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -22,10 +22,13 @@ export async function POST(request: Request) {
   console.log(email);
 
   try {
-    const [buisnessEmailResponse, clientEmailResponse] = await Promise.all([
+    const [businessEmailResponse, clientEmailResponse] = await Promise.all([
       resend.emails.send({
-        from: 'Website Contact Form <contact@highlandskateshop.com>',
-        to: ['kunal.gala16@gmail.com', 'rickranger.rs@gmail.com'],
+        from: "Website Contact Form <contact@highlandskateshop.com>",
+        to: [
+          "kunal.gala16@gmail.com",
+          // , "rickranger.rs@gmail.com"
+        ],
         subject: `New Inquiry from ${firstName}`,
         reply_to: email,
         react: EmailInquiryTemplate({
@@ -41,10 +44,10 @@ export async function POST(request: Request) {
         }) as React.ReactElement,
       }),
       resend.emails.send({
-        from: 'Highland Skate Shop <contact@highlandskateshop.com>',
+        from: "Highland Skate Shop <contact@highlandskateshop.com>",
         to: [email as string],
         subject: `Thank you for contacting Highland Skate Shop`,
-        reply_to: 'Highland Skate Shop <rickranger.rs@gmail.com>',
+        reply_to: "Highland Skate Shop <rickranger.rs@gmail.com>",
         react: EmailConfirmationTemplate({
           firstName,
           lastName,
@@ -61,7 +64,7 @@ export async function POST(request: Request) {
 
     return Response.json({
       success: true,
-      buisnessEmailResponse,
+      businessEmailResponse,
       clientEmailResponse,
     });
   } catch (error) {
