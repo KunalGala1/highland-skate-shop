@@ -1,4 +1,4 @@
-import { PortableTextBlock } from 'sanity';
+import { PortableTextBlock } from "sanity";
 
 export type AboutType = {
   _id: string;
@@ -32,4 +32,13 @@ export type CarouselType = {
     alt: string;
     image: string;
   }[];
+};
+
+export type TimelineType = {
+  _id: string;
+  title: string;
+  cardTitle: string;
+  url: string;
+  cardSubtitle: string;
+  cardDetailedText: string;
 };

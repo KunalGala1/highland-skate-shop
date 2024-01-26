@@ -50,7 +50,6 @@ export default async function getEvents(): Promise<EventWithColor[]> {
     },
   });
   const eventsJson = await eventsRes.json();
-  console.log(eventsJson);
 
   // Step 2: Get color definitions
   const colorsUrl = new URL("https://www.googleapis.com/calendar/v3/colors");
