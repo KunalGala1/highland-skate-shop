@@ -4,6 +4,7 @@ const nextConfig = {
     serverComponentsExternalPackages: [
       "@react-email/components",
       "@react-email/tailwind",
+      "resend",
     ],
   },
 };

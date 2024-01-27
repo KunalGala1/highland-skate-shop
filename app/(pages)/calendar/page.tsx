@@ -123,15 +123,13 @@ const CalendarPage = () => {
           if (arg.view.type === "dayGridMonth") {
             let monthViewContent = `
               <div class="flex items-center w-full text-white sm:text-black rounded month-text py-px px-0.5  sm:p-0">
-                <div class="fc-daygrid-event-dot" aria-hidden="true" style="border-color: ${
-                  arg.backgroundColor
-                }"></div>
+                <div class="fc-daygrid-event-dot" aria-hidden="true" style="border-color: ${arg.backgroundColor}"></div>
                 <div class="fc-event-time">${startTime}</div>
                 <div class="fc-event-title">${arg.event.title}</div>
               </div>
               <style>
               .month-text {
-                background-color: ${arg.backgroundColor || "#3788d8"};
+                background-color: ${arg.backgroundColor};
               }
               @media (min-width: 640px) {
                 .month-text {

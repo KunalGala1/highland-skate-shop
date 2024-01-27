@@ -39,7 +39,8 @@ export default async function getEvents(): Promise<EventWithColor[]> {
 
   // Step 1: Get events from your calendar
   const eventsUrl = new URL(
-    `https://www.googleapis.com/calendar/v3/calendars/384a95546dccc578044e385e888a3d22838677b09dd50ecf2105484441149e11@group.calendar.google.com/events?singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`
+    // `https://www.googleapis.com/calendar/v3/calendars/384a95546dccc578044e385e888a3d22838677b09dd50ecf2105484441149e11@group.calendar.google.com/events?singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`
+    `https://www.googleapis.com/calendar/v3/calendars/${process.env.CALENDAR_ID}/events?singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`
   );
   const eventsRes = await fetch(eventsUrl.toString(), {
     cache: "no-cache",
@@ -75,7 +76,7 @@ export default async function getEvents(): Promise<EventWithColor[]> {
         allDay: isAllDay, // Set allDay to true for all-day events
         backgroundColor: event.colorId
           ? colorsJson.event[event.colorId].background
-          : undefined,
+          : "rgb(0, 134, 120)",
         textColor: "white",
         // ... include other properties from the event that you might need
       };
