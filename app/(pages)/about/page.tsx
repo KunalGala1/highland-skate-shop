@@ -13,7 +13,7 @@ import { Chrono } from "react-chrono";
 
 const AboutPage = () => {
   const [about, setAbout] = useState<AboutType | null>(null);
-  const [timeline, setTimeline] = useState<any[] | null>(null);
+  const [timeline, setTimeline] = useState<TimelineType[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -21,8 +21,13 @@ const AboutPage = () => {
     try {
       const [about, timeline] = await Promise.all([getAbout(), getTimeline()]);
       setAbout(about);
-      setTimeline(timeline);
       console.log(timeline);
+      const formattedTimeline = timeline.map((item: TimelineType) => ({
+        ...item,
+        title: formatDate(item.title),
+      }));
+      console.log(formattedTimeline);
+      setTimeline(formattedTimeline);
     } catch (error) {
       setError(error as Error);
     } finally {
@@ -30,43 +35,32 @@ const AboutPage = () => {
     }
   };
 
+  const formatDate = (dateString: string): string => {
+    // Validate date format (YYYY-MM-DD)
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(dateString)) {
+      throw new Error("Invalid date format. Expected YYYY-MM-DD.");
+    }
+
+    // Extract year, month, and day from dateString
+    const [year, month, day] = dateString
+      .split("-")
+      .map((num) => parseInt(num, 10));
+
+    // Create a new date object using UTC values
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    // Format the date to "Month Year"
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      timeZone: "UTC",
+    });
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
-
-  const items = [
-    {
-      title: "May 1940",
-      cardTitle: "Dunkirk",
-      url: "http://www.history.com",
-      cardSubtitle:
-        "Men of the British Expeditionary Force (BEF) wade out to..",
-      cardDetailedText:
-        "Men of the British Expeditionary Force (BEF) wade out to..",
-      media: {
-        type: "IMAGE",
-        source: {
-          url: "http://someurl/image.jpg",
-        },
-      },
-    },
-    {
-      _id: "2",
-      title: "2023-01-01",
-      cardTitle: "Dunkirk",
-      url: "#",
-      cardSubtitle:
-        "Men of the British Expeditionary Force (BEF) wade out to..",
-      cardDetailedText:
-        "Men of the British Expeditionary Force (BEF) wade out to..",
-      media: {
-        type: "IMAGE",
-        source: {
-          url: "http://someurl/image.jpg",
-        },
-      },
-    },
-  ];
 
   return (
     <>
@@ -109,12 +103,14 @@ const AboutPage = () => {
               items={timeline}
               mode="VERTICAL_ALTERNATING"
               hideControls={true}
+              borderLessCard={true}
+              disableInteraction={true}
               theme={{
-                primary: "rgb(63, 81, 181)",
-                secondary: "white",
-                cardBgColor: "white",
-                cardForeColor: "black",
-                titleColor: "rgb(63, 81, 181)",
+                primary: "#ba31c2",
+                secondary: "transparent",
+                cardBgColor: "rgb(247,247,247)",
+                titleColor: "#ba31c2",
+                titleColorActive: "#ba31c2",
               }}
             />
           </div>

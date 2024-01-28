@@ -51,8 +51,7 @@ export const getTimeline = async () => {
         _id,
         "title": date,
         "cardTitle": title,
-        "url": "#",
-        "cardSubtitle": description,
+        "cardSubtitle": "",
         "cardDetailedText": description,
         "media": {
           "type": "IMAGE",
