@@ -23,25 +23,17 @@ const timeline = {
       type: "date",
     },
     {
-      name: "images",
-      title: "Images",
-      type: "array",
-      of: [
+      title: "Image",
+      name: "image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      fields: [
         {
-          type: "image",
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: "alt",
-              title: "Alternative text",
-              type: "string",
-              options: {
-                isHighlighted: true,
-              },
-            },
-          ],
+          name: "caption",
+          type: "string",
+          title: "Caption",
         },
       ],
     },

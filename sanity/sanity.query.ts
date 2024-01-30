@@ -56,7 +56,7 @@ export const getTimeline = async () => {
         "media": {
           "type": "IMAGE",
           "source":{
-            "url": "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=1024x1024&w=is&k=20&c=5aen6wD1rsiMZSaVeJ9BWM4GGh5LE_9h97haNpUQN5I="
+            "url": image.asset->url,
           }
         } 
     }`

@@ -7,6 +7,7 @@ import { AboutType } from "@/types";
 import { TimelineType } from "@/types";
 import { useState, useEffect } from "react";
 import { PortableText } from "@portabletext/react";
+import "../../Chrono.css";
 
 // Timeline
 import { Chrono } from "react-chrono";
@@ -96,10 +97,19 @@ const AboutPage = () => {
       </section>
 
       {/* Timeline */}
-      <section className="p-8">
+      <section className="sm:p-8">
         {timeline && (
           <div className="max-w-6xl mx-auto">
             <Chrono
+              mode="VERTICAL_ALTERNATING"
+              hideControls={true}
+              borderLessCard={true}
+            >
+              {timeline.map((item) => (
+                <></>
+              ))}
+            </Chrono>
+            {/* <Chrono
               items={timeline}
               mode="VERTICAL_ALTERNATING"
               hideControls={true}
@@ -109,10 +119,29 @@ const AboutPage = () => {
                 primary: "#ba31c2",
                 secondary: "transparent",
                 cardBgColor: "rgb(247,247,247)",
+                cardForeColor: "red",
                 titleColor: "#ba31c2",
                 titleColorActive: "#ba31c2",
+                color: "red",
               }}
-            />
+              fontSizes={{
+                cardSubtitle: "0.85rem",
+                cardText: "0.8rem",
+                cardTitle: "1rem",
+                title: "1rem",
+              }}
+              classNames={{
+                card: "chrono-card",
+                cardMedia: "chrono-card-media",
+                cardSubTitle: "chrono-card-subtitle",
+                cardText: "chrono-card-text",
+                cardDescription: "chrono-card-description",
+                cardTitle: "chrono-card-title",
+                controls: "chrono-controls",
+                title: "chrono-title",
+              }}
+              mediaHeight={300}
+            /> */}
           </div>
         )}
       </section>
