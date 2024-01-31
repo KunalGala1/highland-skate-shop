@@ -51,13 +51,14 @@ export const getTimeline = async () => {
         _id,
         "title": date,
         "cardTitle": title,
-        "cardSubtitle": "",
+        "cardSubtitle": subtitle,
         "cardDetailedText": description,
         "media": {
           "type": "IMAGE",
           "source":{
             "url": image.asset->url,
-          }
+          },
+          "alt": image.caption
         } 
     }`
   );

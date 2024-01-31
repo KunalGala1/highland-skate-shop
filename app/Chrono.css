@@ -1,11 +1,50 @@
-.chrono-card-title {
-  color: #ba31c2 !important;
+.idSjjH:not(.using-icon).active {
+  background-color: white !important;
 }
 
-.chrono-card-text {
-  padding-bottom: 16px !important;
+.chrono-title {
+  line-height: 1.5;
 }
 
-.chrono-card-text p {
-  font-size: 0.9rem !important;
+.chrono-card {
+  height: auto !important;
+  width: 100% !important;
+}
+
+@media (max-width: 700px) {
+  .card-content-wrapper {
+    width: 50% !important;
+  }
+}
+
+.timeline-main-wrapper {
+  padding: 0 !important;
+}
+
+[data-testid="tree-main"] {
+  padding: 0 !important;
+}
+
+[data-testid="tree-main"] li {
+  justify-content: space-around !important;
+}
+
+/* Default to full month format */
+.full-month {
+  display: block;
+}
+
+.short-month {
+  display: none;
+}
+
+/* On small screens, show short month format */
+@media (max-width: 600px) {
+  .full-month {
+    display: none;
+  }
+
+  .short-month {
+    display: block;
+  }
 }

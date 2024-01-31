@@ -12,6 +12,11 @@ const timeline = {
       type: "string",
     },
     {
+      name: "subtitle",
+      title: "Subtitle",
+      type: "string",
+    },
+    {
       name: "description",
       title: "Description",
       type: "text",

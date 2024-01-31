@@ -38,7 +38,13 @@ export type TimelineType = {
   _id: string;
   title: string;
   cardTitle: string;
-  url: string;
   cardSubtitle: string;
   cardDetailedText: string;
+  media: {
+    type: string;
+    source: {
+      url: string;
+    };
+    caption: string;
+  };
 };

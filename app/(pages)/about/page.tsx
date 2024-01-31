@@ -7,6 +7,7 @@ import { AboutType } from "@/types";
 import { TimelineType } from "@/types";
 import { useState, useEffect } from "react";
 import { PortableText } from "@portabletext/react";
+
 import "../../Chrono.css";
 
 // Timeline
@@ -22,13 +23,7 @@ const AboutPage = () => {
     try {
       const [about, timeline] = await Promise.all([getAbout(), getTimeline()]);
       setAbout(about);
-      console.log(timeline);
-      const formattedTimeline = timeline.map((item: TimelineType) => ({
-        ...item,
-        title: formatDate(item.title),
-      }));
-      console.log(formattedTimeline);
-      setTimeline(formattedTimeline);
+      setTimeline(timeline);
     } catch (error) {
       setError(error as Error);
     } finally {
@@ -36,32 +31,43 @@ const AboutPage = () => {
     }
   };
 
-  const formatDate = (dateString: string): string => {
-    // Validate date format (YYYY-MM-DD)
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(dateString)) {
-      throw new Error("Invalid date format. Expected YYYY-MM-DD.");
-    }
-
-    // Extract year, month, and day from dateString
-    const [year, month, day] = dateString
-      .split("-")
-      .map((num) => parseInt(num, 10));
-
-    // Create a new date object using UTC values
-    const date = new Date(Date.UTC(year, month - 1, day));
-
-    // Format the date to "Month Year"
-    return date.toLocaleDateString(undefined, {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const fullMonthFormat = date.toLocaleDateString(undefined, {
       year: "numeric",
       month: "long",
-      timeZone: "UTC",
     });
+    const shortMonthFormat = date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+    });
+
+    return { fullMonthFormat, shortMonthFormat };
+  };
+
+  const constructTimelineItems = () => {
+    return (
+      timeline?.map((item) => {
+        const { fullMonthFormat, shortMonthFormat } = formatDate(item.title);
+        return {
+          title: (
+            <>
+              <span className="full-month">{fullMonthFormat}</span>
+              <span className="short-month">{shortMonthFormat}</span>
+            </>
+          ),
+        };
+      }) || []
+    );
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Use the constructTimelineItems function to generate items for the Chrono component
+  const items = constructTimelineItems();
+  console.log(items);
 
   return (
     <>
@@ -97,18 +103,63 @@ const AboutPage = () => {
       </section>
 
       {/* Timeline */}
-      <section className="sm:p-8">
-        {timeline && (
+      <section className="sm:p-8 p-4">
+        {loading ? (
+          <div>loading...</div>
+        ) : (
           <div className="max-w-6xl mx-auto">
             <Chrono
-              mode="VERTICAL_ALTERNATING"
+              items={items}
               hideControls={true}
-              borderLessCard={true}
+              mode="VERTICAL_ALTERNATING"
+              theme={{
+                primary: "#ba31c2",
+                secondary: "transparent",
+                cardBgColor: "rgb(247,247,247)",
+                cardForeColor: "red",
+                titleColor: "#ba31c2",
+                titleColorActive: "#ba31c2",
+                color: "red",
+              }}
+              classNames={{
+                card: "chrono-card",
+                cardMedia: "chrono-card-media",
+                cardSubTitle: "chrono-card-subtitle",
+                cardText: "chrono-card-text",
+                cardDescription: "chrono-card-description",
+                cardTitle: "chrono-card-title",
+                controls: "chrono-controls",
+                title: "chrono-title",
+              }}
             >
-              {timeline.map((item) => (
-                <></>
-              ))}
+              {timeline &&
+                timeline.map((item) => (
+                  <>
+                    <div className="w-full h-full space-y-4">
+                      <h1 className="font-bold text-[#ba31c2]">
+                        {item.cardTitle}
+                      </h1>
+                      {item.cardSubtitle && <h2>{item.cardSubtitle}</h2>}
+                      {item.cardDetailedText && <p>{item.cardDetailedText}</p>}
+                      {item.media && (
+                        <Image
+                          src={item.media.source.url}
+                          width={500}
+                          height={500}
+                          alt={item.media.caption || ""}
+                          unoptimized={true}
+                          className="object-cover rounded shadow max-h-[300px] object-center w-full"
+                        ></Image>
+                      )}
+                    </div>
+                  </>
+                ))}
             </Chrono>
+          </div>
+        )}
+
+        {timeline && (
+          <div className="max-w-6xl mx-auto">
             {/* <Chrono
               items={timeline}
               mode="VERTICAL_ALTERNATING"
