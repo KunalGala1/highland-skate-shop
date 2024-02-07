@@ -5,11 +5,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
 import "../../FullCalendarStyles.css";
+import { set } from "lodash";
 
 const CalendarPage = () => {
   const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+
       try {
         const res = await fetch("/api/calendar", {
           method: "GET",
@@ -18,19 +24,39 @@ const CalendarPage = () => {
           },
         });
 
+        if (!res.ok) throw new Error("Failed to fetch");
+
         const data = await res.json();
 
         setEvents(data.data);
+        setError(false);
       } catch (error) {
-        // Handle error here
+        console.error("Error loading events:", error);
+        setError(true); // Set error state on failure
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  if (error) {
+    // Return the iframe as a backup when there is an error
+    return (
+      <section className="w-full h-screen p-2">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=b0780c8830dfc69c71a00f358cd9298c856c520b210b15fd682df7599a284cc7%40group.calendar.google.com&ctz=America%2FNew_York"
+          style={{ border: 0 }}
+          className="w-full h-full"
+        ></iframe>
+      </section>
+    );
+  }
+
   return (
     <section className="sm:p-8">
+      {events.length === 0 && <p className="p-2">Loading events...</p>}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
         initialView="timeGridWeek"

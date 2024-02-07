@@ -25,10 +25,6 @@
   padding: 0 !important;
 }
 
-[data-testid="tree-main"] li {
-  justify-content: space-around !important;
-}
-
 /* Default to full month format */
 .full-month {
   display: block;

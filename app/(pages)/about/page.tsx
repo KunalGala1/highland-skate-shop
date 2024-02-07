@@ -67,7 +67,6 @@ const AboutPage = () => {
 
   // Use the constructTimelineItems function to generate items for the Chrono component
   const items = constructTimelineItems();
-  console.log(items);
 
   return (
     <>
@@ -75,7 +74,7 @@ const AboutPage = () => {
         <div>
           <div className="flex flex-col md:flex-row md:items-start gap-8">
             {about ? null : (
-              <div className="w-[500px] h-[431px] rounded shadow bg-slate-200"></div>
+              <div className="sm:w-[500px] sm:h-[431px] w-full h-[250px] rounded shadow bg-slate-200"></div>
             )}
 
             {about && (
@@ -90,7 +89,7 @@ const AboutPage = () => {
             )}
 
             {about ? null : (
-              <div className="w-1/2 h-screen rounded shadow bg-slate-200"></div>
+              <div className="sm:w-1/2 sm:h-screen w-full h-[500px] rounded shadow bg-slate-200"></div>
             )}
 
             {about && (
@@ -103,9 +102,9 @@ const AboutPage = () => {
       </section>
 
       {/* Timeline */}
-      <section className="sm:p-8 p-4">
+      <section className="sm:p-8">
         {loading ? (
-          <div>loading...</div>
+          <div className="p-4">loading...</div>
         ) : (
           <div className="max-w-6xl mx-auto">
             <Chrono
@@ -135,7 +134,7 @@ const AboutPage = () => {
               {timeline &&
                 timeline.map((item) => (
                   <>
-                    <div className="w-full h-full space-y-4">
+                    <div className="w-full h-full space-y-4" key={item._id}>
                       <h1 className="font-bold text-[#ba31c2]">
                         {item.cardTitle}
                       </h1>

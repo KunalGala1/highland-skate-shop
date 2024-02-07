@@ -19,11 +19,12 @@ interface ColorsResponse {
 }
 
 interface EventWithColor extends Event {
-  color?: Color;
+  backgroundColor?: string;
+  textColor?: string;
+  allDay?: boolean;
 }
 
 export default async function getEvents(): Promise<EventWithColor[]> {
-  // Assuming you want to fetch events from 3 years in the past to 3 years in the future
   const yearsRange = 1;
   const currentDate = new Date();
   const timeMin = new Date(
@@ -37,51 +38,83 @@ export default async function getEvents(): Promise<EventWithColor[]> {
     currentDate.getDate()
   ).toISOString();
 
-  // Step 1: Get events from your calendar
-  const eventsUrl = new URL(
-    // `https://www.googleapis.com/calendar/v3/calendars/384a95546dccc578044e385e888a3d22838677b09dd50ecf2105484441149e11@group.calendar.google.com/events?singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`
-    `https://www.googleapis.com/calendar/v3/calendars/${process.env.CALENDAR_ID}/events?singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`
-  );
-  const eventsRes = await fetch(eventsUrl.toString(), {
-    cache: "no-cache",
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${await getAccessToken()}`,
-    },
-  });
-  const eventsJson = await eventsRes.json();
+  // Construct the events URL with environment variable for calendar ID
+  const eventsUrl = `https://www.googleapis.com/calendar/v3/calendars/${process.env.CALENDAR_ID}/events?singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`;
 
-  // Step 2: Get color definitions
+  // Fetch events safely
+  const eventsResponse = await fetchEventsWithSafety(new URL(eventsUrl));
+  if (!eventsResponse) return []; // Early return if fetching events failed
+
+  // Fetch colors safely
   const colorsUrl = new URL("https://www.googleapis.com/calendar/v3/colors");
-  const colorsRes = await fetch(colorsUrl.toString(), {
-    cache: "no-cache",
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${await getAccessToken()}`,
-    },
-  });
-  const colorsJson: ColorsResponse = await colorsRes.json();
+  const colorsResponse = await fetchColorsWithSafety(colorsUrl);
+  if (!colorsResponse) return []; // Early return if fetching colors failed
 
-  // Step 3: Map colorId to actual colors and format for FullCalendar
-  const formattedEvents: EventWithColor[] = eventsJson.items.map(
+  // Map colorId to actual colors
+  const formattedEvents: EventWithColor[] = eventsResponse.items.map(
     (event: Event) => {
       const isAllDay = event.start.date && !event.start.dateTime;
       return {
         id: event.id,
-        title: event.summary, // 'summary' from Google Calendar event is the 'title' in FullCalendar
-        start: event.start.dateTime || event.start.date, // Use dateTime for timed events and date for all-day events
-        end: event.end.dateTime || event.end.date, // Similarly for end time
-        allDay: isAllDay, // Set allDay to true for all-day events
+        title: event.summary || "No Title",
+        start: event.start.date || event.start.dateTime,
+        end: event.end.date || event.end.dateTime,
+        allDay: !!isAllDay,
         backgroundColor: event.colorId
-          ? colorsJson.event[event.colorId].background
+          ? colorsResponse.event[event.colorId].background
           : "rgb(0, 134, 120)",
         textColor: "white",
-        // ... include other properties from the event that you might need
       };
     }
   );
 
   return formattedEvents;
+}
+
+async function fetchEventsWithSafety(
+  eventsUrl: URL
+): Promise<{ items: Event[] } | null> {
+  try {
+    const accessToken = await getAccessToken();
+    if (!accessToken) throw new Error("Failed to retrieve access token");
+
+    const response = await fetch(eventsUrl.toString(), {
+      cache: "no-cache",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return null;
+  }
+}
+
+async function fetchColorsWithSafety(
+  colorsUrl: URL
+): Promise<ColorsResponse | null> {
+  try {
+    const accessToken = await getAccessToken();
+    if (!accessToken) throw new Error("Failed to retrieve access token");
+
+    const response = await fetch(colorsUrl.toString(), {
+      cache: "no-cache",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching colors:", error);
+    return null;
+  }
 }
