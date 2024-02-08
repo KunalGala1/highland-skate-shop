@@ -73,7 +73,6 @@ const HomePage = () => {
         <div className="sm:w-1/2 space-y-4">
           {retroImages && retroImages.images ? (
             <EmblaImageCarousel
-              options={{ loop: true }}
               slides={retroImages.images.map((image) => ({
                 src: image.image,
                 alt: image.alt,
@@ -102,11 +101,12 @@ const HomePage = () => {
           alt={"Slanted Shape Graphic Top"}
           className="translate-y-1 scale-105 w-full"
         ></Image>
-        <div className="bg-splash">
-          <div className="max-w-2xl mx-auto">
+        <div className="bg-splash relative">
+          <div className="bg-fade-edges absolute z-10 w-full h-full top-0 left-0 pointer-events-none"></div>
+
+          <div className="max-w-2xl mx-auto overflow-x-hidden">
             {testimonials ? (
               <EmblaTestemonialCarousel
-                options={{ loop: true }}
                 slides={testimonials.map((testimonial) => ({
                   quote: testimonial.quote,
                   author: testimonial.author,
@@ -130,8 +130,8 @@ const HomePage = () => {
 
       {/* Profiles */}
       <section className="p-8 space-y-16 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/3">
+        <div className="flex flex-col sm:flex-row gap-8">
+          <div className="sm:w-1/2 md:w-1/3 w-full">
             {profiles[0] ? (
               <Image
                 src={profiles[0].image.image}
@@ -139,13 +139,13 @@ const HomePage = () => {
                 height={500}
                 alt={profiles[0].image.alt}
                 unoptimized={true}
-                className="rounded shadow"
+                className="rounded shadow w-full"
               ></Image>
             ) : (
               <div className="h-96 rounded shadow bg-slate-200"></div>
             )}
           </div>
-          <div className="space-y-4 md:w-2/3">
+          <div className="space-y-4 sm:w-1/2 md:w-2/3 w-full">
             {profiles[0] ? (
               <SmallHeader>{profiles[0].name}</SmallHeader>
             ) : (
@@ -161,8 +161,8 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row-reverse gap-8">
-          <div className="md:w-1/3">
+        <div className="flex flex-col sm:flex-row-reverse gap-8">
+          <div className="sm:w-1/2 md:w-1/3 w-full">
             {profiles[1] ? (
               <Image
                 src={profiles[1].image.image}
@@ -170,13 +170,13 @@ const HomePage = () => {
                 height={500}
                 alt={profiles[1].image.alt}
                 unoptimized={true}
-                className="rounded shadow"
+                className="rounded shadow w-full"
               ></Image>
             ) : (
               <div className="h-96 rounded shadow bg-slate-200"></div>
             )}
           </div>
-          <div className="space-y-4 md:w-2/3">
+          <div className="space-y-4 sm:w-1/2 md:w-2/3 w-full">
             {profiles[1] ? (
               <SmallHeader>{profiles[1].name}</SmallHeader>
             ) : (

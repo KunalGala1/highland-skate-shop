@@ -22,8 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className + " leading-loose"}>{children}</body>
+    <html lang="en" className="overflow-x-hidden">
+      <body className={inter.className + " leading-loose overflow-x-hidden"}>
+        {children}
+      </body>
     </html>
   );
 }
