@@ -23,8 +23,7 @@ export async function POST(request: Request) {
     const [businessEmailResponse, clientEmailResponse] = await Promise.all([
       resend.emails.send({
         from: "Website Contact Form <contact@highlandskateshop.com>",
-        // to: ["kunal.gala16@gmail.com", "rickranger.rs@gmail.com"],
-        to: ["kunal.gala16@gmail.com"],
+        to: ["kunal.gala16@gmail.com", "rickranger.rs@gmail.com"],
         subject: `New Inquiry from ${firstName}`,
         reply_to: email,
         react: EmailInquiryTemplate({

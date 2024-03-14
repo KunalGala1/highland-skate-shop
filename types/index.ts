@@ -48,3 +48,11 @@ export type TimelineType = {
     caption: string;
   };
 };
+
+export type GalleryType = {
+  _id: string;
+  images: {
+    alt: string;
+    src: string;
+  }[];
+};

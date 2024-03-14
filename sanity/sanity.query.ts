@@ -63,3 +63,16 @@ export const getTimeline = async () => {
     }`
   );
 };
+
+export const getGallery = async () => {
+  return client.fetch(
+    groq`*[_type == 'gallery'][0]{
+      _id,
+      title,
+      images[] {
+        alt,
+        "src": asset->url
+      }
+    }`
+  );
+};

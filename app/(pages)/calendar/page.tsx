@@ -60,6 +60,7 @@ const CalendarPage = () => {
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
         initialView="timeGridWeek"
+        firstDay={0}
         events={events}
         headerToolbar={{
           left: "prev,next,today",
@@ -80,11 +81,30 @@ const CalendarPage = () => {
           const dayOfWeek = arg.date
             .toLocaleDateString("en-US", { weekday: "short" })
             .toUpperCase();
+
+          // Custom function to get the following day of the week
+          const getFollowingDayOfWeek = (dateString: string) => {
+            const date = new Date(dateString);
+
+            date.setDate(date.getDate() + 1);
+
+            const followingDayOfWeek = date
+              .toLocaleDateString("en-US", {
+                weekday: "short",
+              })
+              .toUpperCase();
+
+            return followingDayOfWeek;
+          };
+
+          const fixedDayOfWeek = getFollowingDayOfWeek(
+            arg.date.toLocaleDateString()
+          );
+
+          const dateOfMonth = arg.date.getDate();
+
           // Check if the current view is the week view
           if (arg.view.type === "timeGridWeek") {
-            // Format the date of the month (e.g., "21")
-            const dateOfMonth = arg.date.getDate();
-
             // Return the custom header content with Tailwind CSS classes for the week view
             return {
               html: `<div class="text-slate-600/80 font-semibold text-[11px] mt-1">${dayOfWeek}</div><div class="text-slate-600/80 sm:text-[26px] text-[13px] mt-1 font-normal">${dateOfMonth}</div>`,
@@ -92,7 +112,7 @@ const CalendarPage = () => {
           } else {
             // Return empty content for month view
             return {
-              html: `<div class="text-slate-600/80 font-semibold text-[11px] mt-1">${dayOfWeek}</div>`,
+              html: `<div class="text-slate-600/80 font-semibold text-[11px] mt-1">${fixedDayOfWeek}</div>`,
             };
           }
         }}
