@@ -23,6 +23,7 @@ const nextConfig = {
       "resend",
     ],
   },
+  output: "standalone",
 };
 
 module.exports = nextConfig;

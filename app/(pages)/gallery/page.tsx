@@ -1,15 +1,14 @@
 "use client";
+import React from "react";
+import { SlideshowLightbox } from "lightbox.js-react";
 import "lightbox.js-react/dist/index.css";
-import { SlideshowLightbox, initLightboxJS } from "lightbox.js-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getGallery } from "@/sanity/sanity.query";
 import type { GalleryType } from "@/types";
 
-// FIXME: fix types!
-
 const GalleryPage = () => {
-  const [gallery, setGallery] = useState([]);
+  const [gallery, setGallery] = useState<GalleryType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -17,7 +16,7 @@ const GalleryPage = () => {
     const fetchData = async () => {
       try {
         const data = await getGallery();
-        setGallery(data.images);
+        setGallery(data);
         setIsLoading(false);
         setError(false);
       } catch (error) {
@@ -28,59 +27,51 @@ const GalleryPage = () => {
     };
 
     fetchData();
+    // initLightboxJS("6720-FA22-3857-27B3", "individual");
   }, []);
-
-  useEffect(() => {
-    initLightboxJS("6720-FA22-3857-27B3", "individual");
-  }, []);
-
-  const images = [
-    {
-      src: "https://source.unsplash.com/sQZ_A17cufs/549x711",
-      alt: "Mechanical keyboard with white keycaps.",
-    },
-    {
-      src: "https://source.unsplash.com/rsAeSMzOX9Y/768x512",
-      alt: "Mechanical keyboard with white, pastel green and red keycaps.",
-    },
-    {
-      src: "https://source.unsplash.com/Z6SXt1v5tP8/768x512",
-      alt: "Mechanical keyboard with white, pastel pink, yellow and red keycaps.",
-    },
-  ];
 
   return (
-    <section className="p-8">
+    <section className="p-2">
       {isLoading ? (
-        <p>Loading gallery...</p>
+        <>
+          <p className="text-center">Loading gallery...</p>
+          <div className="flex sm:flex-wrap p-4 gap-4 justify-center">
+            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
+            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
+            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
+            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
+          </div>
+        </>
       ) : (
-        <SlideshowLightbox
-          lightboxIdentifier="lightbox1"
-          framework="next"
-          images={gallery}
-          showThumbnails={true}
-          className="flex gap-8 flex-wrap justify-center"
-        >
-          {gallery.map((image, index) => (
-            <div>
-              <div className="overflow-hidden rounded">
-                <Image
-                  key={index}
-                  src={image.src}
-                  alt={image.alt}
-                  height={500}
-                  width={500}
-                  data-lightboxjs="lightbox1"
-                  quality={80}
-                  className="rounded shadow max-w-[400px] object-cover object-center aspect-square filter brightness-95 hover:brightness-100 transition hover:scale-105"
-                />
-              </div>
-              {image.alt && (
-                <p className="text-slate-700 pt-0.5 text-sm">{image.alt}</p>
-              )}
+        <>
+          <SlideshowLightbox
+            lightboxIdentifier="lightbox1"
+            framework="next"
+            images={gallery?.images}
+            showThumbnails={true}
+          >
+            <div className="mx-auto flex flex-wrap bg-slate-100 p-2 rounded shadow">
+              {gallery?.images.map((image) => (
+                <div
+                  className="sm:w-1/2 xl:w-1/3 2xl:w-1/4 p-2 rounded"
+                  key={image.alt}
+                >
+                  <div className="overflow-hidden rounded">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      height={500}
+                      width={500}
+                      data-lightboxjs="lightbox1"
+                      quality={80}
+                      className="w-full rounded shadow object-cover object-center aspect-video filter transition duration-300 ease-in-out hover:scale-105"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </SlideshowLightbox>
+          </SlideshowLightbox>
+        </>
       )}
     </section>
   );
