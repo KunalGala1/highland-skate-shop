@@ -42,9 +42,9 @@ const Nav = () => {
         <NavListItem href="/services" closeNav={closeNav}>
           Services
         </NavListItem>
-        <NavListItem href="/gallery" closeNav={closeNav}>
+        {/* <NavListItem href="/gallery" closeNav={closeNav}>
           Gallery
-        </NavListItem>
+        </NavListItem> */}
         <NavListItem href="/calendar" closeNav={closeNav}>
           Calendar
         </NavListItem>
