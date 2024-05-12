@@ -11,6 +11,7 @@ import { PortableText } from "@portabletext/react";
 import "../../Chrono.css";
 
 // Timeline
+import React from "react";
 import { Chrono } from "react-chrono";
 
 const AboutPage = () => {
@@ -67,7 +68,6 @@ const AboutPage = () => {
 
   // Use the constructTimelineItems function to generate items for the Chrono component
   const items = constructTimelineItems();
-
   return (
     <>
       <section className="p-8 max-w-6xl mx-auto">
@@ -109,7 +109,7 @@ const AboutPage = () => {
           <div className="max-w-6xl mx-auto">
             <Chrono
               items={items}
-              hideControls={true}
+              disableToolbar={true}
               mode="VERTICAL_ALTERNATING"
               theme={{
                 primary: "#ba31c2",
@@ -154,44 +154,6 @@ const AboutPage = () => {
                   </>
                 ))}
             </Chrono>
-          </div>
-        )}
-
-        {timeline && (
-          <div className="max-w-6xl mx-auto">
-            {/* <Chrono
-              items={timeline}
-              mode="VERTICAL_ALTERNATING"
-              hideControls={true}
-              borderLessCard={true}
-              disableInteraction={true}
-              theme={{
-                primary: "#ba31c2",
-                secondary: "transparent",
-                cardBgColor: "rgb(247,247,247)",
-                cardForeColor: "red",
-                titleColor: "#ba31c2",
-                titleColorActive: "#ba31c2",
-                color: "red",
-              }}
-              fontSizes={{
-                cardSubtitle: "0.85rem",
-                cardText: "0.8rem",
-                cardTitle: "1rem",
-                title: "1rem",
-              }}
-              classNames={{
-                card: "chrono-card",
-                cardMedia: "chrono-card-media",
-                cardSubTitle: "chrono-card-subtitle",
-                cardText: "chrono-card-text",
-                cardDescription: "chrono-card-description",
-                cardTitle: "chrono-card-title",
-                controls: "chrono-controls",
-                title: "chrono-title",
-              }}
-              mediaHeight={300}
-            /> */}
           </div>
         )}
       </section>
