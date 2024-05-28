@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -7,56 +6,24 @@ import googleCalendarPlugin from "@fullcalendar/google-calendar";
 import "../../FullCalendarStyles.css";
 import { set } from "lodash";
 
-const CalendarPage = () => {
-  const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
+// Fetch calendar events on server
+async function getData() {
+  const res = await fetch("/api/calendar", { cache: "no-store" });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      try {
-        const res = await fetch("/api/calendar", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!res.ok) throw new Error("Failed to fetch");
-
-        const data = await res.json();
-
-        setEvents(data.data);
-        setError(false);
-      } catch (error) {
-        console.error("Error loading events:", error);
-        setError(true); // Set error state on failure
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (error) {
-    // Return the iframe as a backup when there is an error
-    return (
-      <section className="w-full h-screen p-2">
-        <iframe
-          src="https://calendar.google.com/calendar/embed?src=b0780c8830dfc69c71a00f358cd9298c856c520b210b15fd682df7599a284cc7%40group.calendar.google.com&ctz=America%2FNew_York"
-          style={{ border: 0 }}
-          className="w-full h-full"
-        ></iframe>
-      </section>
-    );
+  if (!res.ok) {
+    throw new Error("Failed to fetch");
   }
+
+  return res.json();
+}
+
+const CalendarPage = async () => {
+  const data = await getData();
+  const events = data.data;
+  console.log("🚀 ~ CalendarPage ~ events:", events);
 
   return (
     <section className="sm:p-8">
-      {events.length === 0 && <p className="p-2">Loading events...</p>}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
         initialView="timeGridWeek"

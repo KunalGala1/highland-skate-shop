@@ -33,6 +33,7 @@ export default async function getAccessToken(): Promise<string> {
   });
 
   const json = await response.json();
+  console.log("🚀 ~ getAccessToken ~ json:", json);
 
   if (!json.access_token) {
     throw new Error(
