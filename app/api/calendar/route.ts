@@ -1,5 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
 import getEvents from "@/lib/getEvents";
 import { NextRequest } from "next/server";
 
@@ -7,16 +5,13 @@ type ResponseData = {
   message: string;
 };
 
-export async function GET(
-  req: NextRequest,
-  res: NextApiResponse<ResponseData>
-) {
+export async function GET(request: Request) {
   try {
-    const response = await getEvents();
+    const res = await getEvents();
 
     return Response.json({
       message: "Success",
-      data: response,
+      data: res,
     });
   } catch (error) {
     return Response.json({
