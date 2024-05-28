@@ -1,9 +1,4 @@
 import getEvents from "@/lib/getEvents";
-import { NextRequest } from "next/server";
-
-type ResponseData = {
-  message: string;
-};
 
 export async function GET(request: Request) {
   try {
