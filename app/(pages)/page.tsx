@@ -95,7 +95,7 @@ const HomePage = () => {
       {/* Testemonial */}
       <section className="my-16">
         <Image
-          src={"/testemonial-wave-top.svg"}
+          src={"/files/testemonial-wave-top.svg"}
           width={500}
           height={100}
           alt={"Slanted Shape Graphic Top"}
@@ -120,7 +120,7 @@ const HomePage = () => {
           </div>
         </div>
         <Image
-          src={"/testemonial-wave-bottom.svg"}
+          src={"/files/testemonial-wave-bottom.svg"}
           width={500}
           height={100}
           alt={"Slanted Shape Graphic Bottom"}

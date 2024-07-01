@@ -46,7 +46,6 @@ const Form = () => {
 
       if (result.success) {
         setIsSending(false);
-        console.log("Email sent:", result);
         toast.success("Email sent!");
         reset();
       } else {
@@ -56,7 +55,6 @@ const Form = () => {
       }
     } catch (error) {
       setIsSending(false);
-      console.log("Network error:", error);
       toast.error("Network error");
     }
   };

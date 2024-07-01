@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "sst dev next dev",
+    "dev": "next dev",
     "email": "email dev --dir ./emails",
     "lint": "next lint",
     "ssh": "ssh ec2-user@18.218.163.80",

@@ -9,7 +9,7 @@ const ServicesPage = () => {
     <>
       <div>
         <Image
-          src={"/skate_shop_services.jpg"}
+          src={"/files/skate_shop_services.jpg"}
           width={500}
           height={500}
           alt={"alt"}

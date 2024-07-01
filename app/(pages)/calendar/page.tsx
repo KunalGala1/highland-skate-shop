@@ -9,7 +9,6 @@ async function getData() {
 
 const CalendarPage = async () => {
   const events = await getData();
-  console.log("🚀 ~ CalendarPage ~ events:", events);
 
   return (
     <section className="sm:p-8">
