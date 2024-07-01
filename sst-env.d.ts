@@ -3,7 +3,7 @@
 import "sst"
 declare module "sst" {
   export interface Resource {
-    MyWeb: {
+    HighlandSkateShop: {
       type: "sst.aws.Nextjs"
       url: string
     }
