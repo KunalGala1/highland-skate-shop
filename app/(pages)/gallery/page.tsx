@@ -36,10 +36,11 @@ const GalleryPage = () => {
         <>
           <p className="text-center">Loading gallery...</p>
           <div className="flex sm:flex-wrap p-4 gap-4 justify-center">
-            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
-            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
-            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
-            <div className="bg-slate-200/90 rounded shadow w-full sm:w-[45%] md:w-[30%] lg:w-[20%] h-[500px] p-4"></div>
+            <div className="bg-slate-200/90 rounded shadow flex-1 h-[500px] p-4"></div>
+            <div className="bg-slate-200/90 rounded shadow flex-1 h-[500px] p-4 hidden sm:block"></div>
+            <div className="bg-slate-200/90 rounded shadow flex-1 h-[500px] p-4 hidden md:block"></div>
+            <div className="bg-slate-200/90 rounded shadow flex-1 h-[500px] p-4 hidden lg:block"></div>
+            <div className="bg-slate-200/90 rounded shadow flex-1 h-[500px] p-4 hidden xl:block"></div>
           </div>
         </>
       ) : (

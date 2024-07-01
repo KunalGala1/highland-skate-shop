@@ -38,3 +38,9 @@ yarn-error.log*
 next-env.d.ts
 
 .react-email/
+
+# sst
+.sst
+
+# open-next
+.open-next
